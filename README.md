@@ -6,7 +6,7 @@ console, but it can help you build rules faster.
 ## Install
 
 ```shell
-go get github.com/albertoforcato/aws-fraud-detector-rule-builder
+go get github.com/albertoforcato/aws-fraud-detector-rule-builder@0.1.0
 ```
 
 ## Examples
