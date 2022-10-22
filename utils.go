@@ -12,7 +12,7 @@ func evalElem(elem any) string {
 	}
 }
 
-func (r *RuleBuilder) getSet(elems ...any) string {
+func getSet(elems ...any) string {
 	tmpExpr := "["
 	for _, elem := range elems {
 		tmpExpr += fmt.Sprintf("%s, ", evalElem(elem))

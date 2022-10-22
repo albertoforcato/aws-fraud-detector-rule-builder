@@ -13,13 +13,6 @@ func NewRuleBuilder() *RuleBuilder {
 	return &RuleBuilder{}
 }
 
-type Rule struct {
-}
-
-func (r *RuleBuilder) Build() *Rule {
-	return &Rule{}
-}
-
 func (r *RuleBuilder) OpenParenthesis() *RuleBuilder {
 	if r == nil {
 		return nil
@@ -52,11 +45,11 @@ func (r *RuleBuilder) Or() *RuleBuilder {
 	return r
 }
 
-func (r *RuleBuilder) Not(elem any) *RuleBuilder {
+func (r *RuleBuilder) Not() *RuleBuilder {
 	if r == nil {
 		return nil
 	}
-	r.expression += fmt.Sprintf(" not %s", evalElem(elem))
+	r.expression += fmt.Sprintf(" not")
 	return r
 }
 
@@ -65,6 +58,14 @@ func (r *RuleBuilder) Equal(elem any) *RuleBuilder {
 		return nil
 	}
 	r.expression += fmt.Sprintf(" == %s", evalElem(elem))
+	return r
+}
+
+func (r *RuleBuilder) NotEqual(elem any) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+	r.expression += fmt.Sprintf(" != %s", evalElem(elem))
 	return r
 }
 
@@ -105,7 +106,7 @@ func (r *RuleBuilder) In(elems ...any) *RuleBuilder {
 		return nil
 	}
 
-	r.expression += fmt.Sprintf(" in %s", r.getSet(elems...))
+	r.expression += fmt.Sprintf(" in %s", getSet(elems...))
 
 	return r
 }
@@ -115,7 +116,67 @@ func (r *RuleBuilder) NotIn(elems ...any) *RuleBuilder {
 		return nil
 	}
 
-	r.expression += fmt.Sprintf(" not in %s", r.getSet(elems...))
+	r.expression += fmt.Sprintf(" not in %s", getSet(elems...))
+
+	return r
+}
+
+func (r *RuleBuilder) Sum(elem any) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.expression += fmt.Sprintf(" + %s", evalElem(elem))
+
+	return r
+}
+
+func (r *RuleBuilder) Sub(elem any) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.expression += fmt.Sprintf(" - %s", evalElem(elem))
+
+	return r
+}
+
+func (r *RuleBuilder) Mul(elem any) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.expression += fmt.Sprintf(" * %s", evalElem(elem))
+
+	return r
+}
+
+func (r *RuleBuilder) Div(elem any) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.expression += fmt.Sprintf(" / %s", evalElem(elem))
+
+	return r
+}
+
+func (r *RuleBuilder) Mod(elem any) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.expression += fmt.Sprintf(" %% %s", evalElem(elem))
+
+	return r
+}
+
+func (r *RuleBuilder) AddRegexMatch(regex string, varName string) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.expression += fmt.Sprintf("regex_match(\"%s\", $%s)", regex, varName)
 
 	return r
 }
@@ -128,6 +189,40 @@ func (r *RuleBuilder) Var(varName string, varType VariableType) *RuleBuilder {
 	r.addVariable(varName, varType)
 
 	r.expression += fmt.Sprintf("$%s", varName)
+
+	return r
+}
+
+func (r *RuleBuilder) VarUppercase(varName string, varType VariableType) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.addVariable(varName, varType)
+
+	r.expression += fmt.Sprintf("uppercase($%s)", varName)
+
+	return r
+}
+
+func (r *RuleBuilder) VarLowercase(varName string, varType VariableType) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.addVariable(varName, varType)
+
+	r.expression += fmt.Sprintf("lowercase($%s)", varName)
+
+	return r
+}
+
+func (r *RuleBuilder) CustomString(str string) *RuleBuilder {
+	if r == nil {
+		return nil
+	}
+
+	r.expression += str
 
 	return r
 }
