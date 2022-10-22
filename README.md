@@ -1,5 +1,7 @@
 # AWS Fraud Detector Rule Builder
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/albertoforcato/aws-fraud-detector-rule-builder)](https://goreportcard.com/report/github.com/albertoforcato/aws-fraud-detector-rule-builder)
+
 This is a simple tool to help you build AWS Fraud Detector rules. It is not a replacement for the AWS Fraud Detector
 console, but it can help you build rules faster.
 
