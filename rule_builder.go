@@ -1,4 +1,4 @@
-package aws_fraud_detector_rule_builder
+package rlbuilder
 
 import (
 	"fmt"
@@ -237,7 +237,7 @@ func (r *RuleBuilder) Erase() *RuleBuilder {
 	return r
 }
 
-func (r *RuleBuilder) String() string {
+func (r *RuleBuilder) Build() string {
 	if r == nil {
 		return ""
 	}

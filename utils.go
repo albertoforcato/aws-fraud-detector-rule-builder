@@ -1,4 +1,4 @@
-package aws_fraud_detector_rule_builder
+package rlbuilder
 
 import "fmt"
 
