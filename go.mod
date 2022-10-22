@@ -1,4 +1,4 @@
-module aws-fraud-detector-rule-builder
+module github.com/albertoforcato/aws-fraud-detector-rule-builder
 
 go 1.18
 
